@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art & Handicraft Landing Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/locomotive-scroll/4.1.4/locomotive-scroll.min.js"></script>
+  <style>
+    /* Root Variables for Themes */
+    :root {
+      --primary-color: #ff69b4;
+      --secondary-color: #1e1e1e;
+      --background-color: #f8e1e9;
+      --text-color: #333333;
+      --accent-color: #ffb6c1;
+      --button-hover: #ff1493;
+    }
+
+    /* Body Styles */
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--background-color);
+      color: var(--text-color);
+      overflow-x: hidden;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+
+    /* Header Section */
+    header {
+      height: 100vh;
+      background: url('https://images.unsplash.com/photo-1601261377437-7bcdd586df11?auto=format&fit=crop&w=2000&q=80') center/cover no-repeat;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      color: #fff;
+    }
+
+    img.logo {
+    max-width: 75px; /* Further reduce the maximum width of the logo */
+    height: auto; /* Maintain aspect ratio */
+    position: absolute; /* Positioning relative to its container */
+    border-radius: 5px; /* Smaller rounded corners for a sleeker look */
+    top: 10px; /* Position 10px from the top */
+    left: 10px; /* Position 10px from the left */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease, opacity 0.3s ease; /* Smooth transitions */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2); /* Enhanced drop shadow for depth */
+    opacity: 0.9; /* Slightly transparent for a softer look */
+}
+
+/* Hover effects */
+img.logo:hover {
+    transform: scale(1.1); /* Slightly enlarge on hover */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+    cursor: pointer; /* Change cursor to pointer */
+    filter: brightness(1.1); /* Brighten the logo on hover */
+}
+
+/* Focus effect for accessibility */
+img.logo:focus {
+    outline: none; /* Remove default outline */
+    box-shadow: 0 0 15px rgba(0, 204, 255, 0.8); /* Cyan glow effect */
+}
+
+/* Additional styling */
+img.logo {
+    background-color: rgba(255, 255, 255, 0.3); /* Light background for contrast */
+    padding: 3px; /* Reduced padding for a more compact look */
+    border: 2px solid rgba(0, 0, 0, 0.1); /* Light border for definition */
+    border-radius: 5px; /* Consistent rounded corners */
+}
+
+/* Optional media query for responsiveness */
+@media (max-width: 768px) {
+    img.logo {
+        max-width: 60px; /* Further reduce size on smaller screens */
+        top: 5px; /* Adjust positioning */
+        left: 5px; /* Adjust positioning */
+    }
+}
+
+/* Animation for a more dynamic effect */
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0); /* Reset position */
+    }
+    40% {
+        transform: translateY(-5px); /* Bounce up */
+    }
+    60% {
+        transform: translateY(-2px); /* Bounce slightly */
+    }
+}
+
+/* Adding bounce effect on hover */
+img.logo:hover {
+    animation: bounce 0.6s; /* Apply bounce animation on hover */
+}
+
+
+
+    /* Header Text */
+    header h1 {
+      font-size: 4.5em;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+      margin: 0;
+    }
+
+    header p {
+      font-size: 1.5em;
+      margin-top: 20px;
+    }
+
+    /* Button Styles */
+    button {
+      padding: 15px 30px;
+      font-size: 1.5em;
+      border: none;
+      background: var(--primary-color);
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background: var(--button-hover);
+      transform: scale(1.05);
+    }
+
+    /* Section Styles */
+    section {
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    /* Features and Product List */
+    .features,
+    .product-list,
+    .testimonials,
+    .blog-posts,
+    .events,
+    .team,
+    .contact-info {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* Individual Feature/Product */
+    .feature,
+    .product,
+    .testimonial,
+    .blog-post,
+    .event,
+    .team-member,
+    .contact-info-item {
+      background: var(--background-color);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      padding: 20px;
+      width: 30%;
+      margin: 10px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .feature:hover,
+    .product:hover,
+    .testimonial:hover,
+    .blog-post:hover,
+    .event:hover,
+    .team-member:hover,
+    .contact-info-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+
+  /* Gallery Container */
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Ensure all images are the same size and shape */
+.gallery img {
+  width: 300px; /* Fixed width to ensure consistency */
+  height: 200px; /* Fixed height for uniform image size */
+  object-fit: cover; /* Ensure images fit within the box without distortion */
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+/* Hover Effects */
+.gallery img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive Layout */
+@media (max-width: 1200px) {
+  .gallery img {
+    width: 45%;
+    height: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .gallery img {
+    width: 90%;
+    height: auto;
+  }
+}
+
+/* Add subtle fade-in effect for new images */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Add hover effect for the gallery title */
+#gallery h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+#gallery h2:hover {
+  color: #ff6347; /* Add a pop of color on hover */
+}
+
+/* Add padding and spacing for section */
+#gallery {
+  padding: 40px 20px;
+  background-color: #f9f9f9;
+}
+
+/* Additional style to maintain consistency across different browsers */
+* {
+  box-sizing: border-box;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+
+    /* Footer Styles */
+    footer {
+      background: var(--primary-color);
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      position: relative;
+    }
+
+    footer button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background: var(--accent-color);
+      color: var(--text-color);
+      border-radius: 5px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    footer button:hover {
+      background: var(--button-hover);
+      color: #fff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+
+      .feature,
+      .product,
+      .testimonial,
+      .blog-post,
+      .event,
+      .team-member,
+      .contact-info-item {
+        width: 45%;
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      .features,
+      .product-list,
+      .testimonials,
+      .blog-posts,
+      .events,
+      .team,
+      .contact-info {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .feature,
+      .product,
+      .testimonial,
+      .blog-post,
+      .event,
+      .team-member,
+      .contact-info-item {
+        width: 80%;
+        margin: 10px 0;
+      }
+
+      header h1 {
+        font-size: 3em;
+      }
+
+      header p {
+        font-size: 1.2em;
+      }
+
+      button {
+        font-size: 1.2em;
+      }
+    }
+
+    /* Form Styles */
+    .query-form {
+      background: var(--background-color);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      margin: 40px auto;
+    }
+
+    .query-form input,
+    .query-form textarea {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background: #fff;
+      color: #333;
+    }
+
+    .query-form button {
+      width: 100%;
+      background: var(--primary-color);
+      color: white;
+      padding: 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .query-form button:hover {
+      background: var(--button-hover);
+    }
+
+    /* Additional Animations */
+    .animate {
+      opacity: 0;
+      transform: translateY(50px);
+    }
+
+    .animate.active {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Header Section -->
+  <header>
+    <img src="/public/3.webp" alt="Logo" class="logo">
+    <div>
+      <h1>Art & Handicrafts</h1>
+      <p>Explore our exquisite handcrafted pieces!</p>
+      <button onclick="alert('Get Started!')">Shop Now</button>
+    </div>
+  </header>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About Us</h2>
+    <p>We specialize in handmade art and crafts, crafted with passion and precision.</p>
+  </section>
+
+  <!-- Features Section -->
+  <section id="features">
+    <h2>Our Features</h2>
+    <div class="features">
+      <div class="feature animate">
+        <h3>Premium Materials</h3>
+        <p>All our products are made from carefully sourced, top-quality materials.</p>
+      </div>
+      <div class="feature animate">
+        <h3>Exclusive Designs</h3>
+        <p>Our designs are unique and made in small batches.</p>
+      </div>
+      <div class="feature animate">
+        <h3>Handcrafted with Love</h3>
+        <p>Every item is lovingly handcrafted by artisans.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Section -->
+<section id="gallery">
+  <h2>Gallery</h2>
+  <div class="gallery">
+    <img src="/public/1.jpg" alt="Art Piece 1">
+    <img src="/public/4.jpg" alt="Art Piece 2">
+    <img src="/public/5.jpg" alt="Art Piece 3">
+    <img src="/public/6.jpg" alt="Art Piece 4">
+    <img src="/public/7.jpg" alt="Art Piece 5">
+    <img src="/public/8.jpg" alt="Art Piece 6">
+  </div>
+</section>
+
+
+  <!-- Products Section -->
+  <section id="products">
+    <h2>Featured Products</h2>
+    <div class="product-list">
+      <div class="product animate">
+        <h3>Handmade Pottery</h3>
+        <p>Beautifully crafted pottery for your home decor.</p>
+      </div>
+      <div class="product animate">
+        <h3>Artistic Paintings</h3>
+        <p>Unique paintings to add color to your walls.</p>
+      </div>
+      <div class="product animate">
+        <h3>Crafted Jewelry</h3>
+        <p>Exquisite jewelry pieces handcrafted by artisans.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section id="testimonials">
+    <h2>Testimonials</h2>
+    <div class="testimonials">
+      <div class="testimonial animate">
+        <p>"Absolutely love the handmade items! They are of the highest quality!"</p>
+        <p>- Sarah</p>
+      </div>
+      <div class="testimonial animate">
+        <p>"The unique designs are simply amazing! Highly recommend!"</p>
+        <p>- Mike</p>
+      </div>
+      <div class="testimonial animate">
+        <p>"Great service and beautiful crafts. Will buy again!"</p>
+        <p>- Emily</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Section -->
+  <section id="blog">
+    <h2>Latest Blog Posts</h2>
+    <div class="blog-posts">
+      <div class="blog-post animate">
+        <h3>Crafting Tips</h3>
+        <p>Learn some essential tips to enhance your crafting skills.</p>
+      </div>
+      <div class="blog-post animate">
+        <h3>Artistic Inspiration</h3>
+        <p>Find inspiration in the world of art and crafts.</p>
+      </div>
+      <div class="blog-post animate">
+        <h3>Upcoming Trends</h3>
+        <p>Stay updated with the latest trends in the handicraft industry.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section id="events">
+    <h2>Upcoming Events</h2>
+    <div class="events">
+      <div class="event animate">
+        <h3>Craft Fair</h3>
+        <p>Join us for our annual craft fair featuring local artisans.</p>
+      </div>
+      <div class="event animate">
+        <h3>Workshops</h3>
+        <p>Participate in our workshops to learn new crafting techniques.</p>
+      </div>
+      <div class="event animate">
+        <h3>Exhibition Opening</h3>
+        <p>Join us for the opening of our latest exhibition featuring local artists.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section id="team">
+    <h2>Meet Our Team</h2>
+    <div class="team">
+      <div class="team-member animate">
+        <h3>Jane Doe</h3>
+        <p>Founder & Artisan</p>
+      </div>
+      <div class="team-member animate">
+        <h3>John Smith</h3>
+        <p>Designer & Craft Specialist</p>
+      </div>
+      <div class="team-member animate">
+        <h3>Emily Johnson</h3>
+        <p>Marketing & Sales Director</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact">
+    <h2>Contact Us</h2>
+    <form class="query-form" onsubmit="alert('Thank you for your message!'); return false;">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <p>&copy; 2024 Art & Handicrafts. All rights reserved.</p>
+    <button onclick="alert('Subscribe!')">Subscribe to Newsletter</button>
+  </footer>
+
+  <!-- Scroll Animation Script -->
+  <script>
+    // GSAP ScrollTrigger Animations
+    gsap.utils.toArray('.animate').forEach((section) => {
+      ScrollTrigger.create({
+        trigger: section,
+        start: "top 80%",
+        onEnter: () => section.classList.add('active'),
+        onLeaveBack: () => section.classList.remove('active'),
+      });
+    });
+
+    // Locomotive Scroll
+    const scroll = new LocomotiveScroll({
+      el: document.querySelector('[data-scroll-container]'),
+      smooth: true
+    });
+  </script>
+</body>
+
+</html>
